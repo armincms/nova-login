@@ -73,8 +73,9 @@ abstract class Authenticator
 	{ 
 		$host = $this->hostName(request()->getHost());
 		$sub = Str::lower($this->name() . '.');
-
-		return Str::lower(Str::contains($host, $sub) ? $host : $sub.$host);
+		$domain = Str::lower(Str::contains($host, $sub) ? $host : $sub.$host);
+		
+		return str_replace($host, $domain, request()->getHost());
 	}
 
 	public function checkDomain(string $host)
