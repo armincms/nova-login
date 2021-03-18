@@ -20,12 +20,10 @@ abstract class TwoFactorAuthenticator extends Authenticator implements TwoFactor
 					'token' => bcrypt($code = rand(99999,999999)),
 					'verified' => false,
 				]); 
-
-				return send_sms(
-					$credentials, __("Your verification code is :code", [
-						'code' => $code 
-					])
-				);   
+				
+                		return app('qasedak')->send( __("Your verification code is :code", [
+					'code' => $code 
+				]), $credentials); 
 	 		});  
 		}  
 
